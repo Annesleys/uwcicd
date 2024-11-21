@@ -4,10 +4,4 @@ resource "aws_lambda_function" "this" {
   role          = var.role_arn
   handler       = var.handler
   filename      = var.filename
-
-  environment {
-    variables = var.environment_variables
-  }
-
-  tags = var.tags
 }
