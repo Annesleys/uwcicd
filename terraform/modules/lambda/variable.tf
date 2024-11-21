@@ -35,3 +35,7 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "source_code_hash" {
+  type        = string
+}

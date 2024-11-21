@@ -9,7 +9,6 @@ terraform {
 
 provider "aws" {
   region = "ap-southeast-2" # Change to your desired region
-  profile = "default"
 }
 
 # variable "lambda_functions" {
@@ -38,4 +37,5 @@ module "lambda_functions" {
   filename             = each.value.filename
   environment_variables = each.value.environment
   tags                 = each.value.tags
+  source_code_hash     = each.value.source_code_hash
 }
