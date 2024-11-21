@@ -28,9 +28,9 @@ jobs:
         mv lambda_function.py package/
         zip -r lambda_function.zip package/
 
-    - name: gmail_extractor
+    - name: gamil_extractor
       run: |
-        cd extract/gmail_extractor
+        cd extract/gamil_extractor
         pip install -r requirements.txt -t package/
         mv lambda_function.py package/
         zip -r lambda_function.zip package/
