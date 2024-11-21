@@ -1,19 +1,29 @@
-provider "aws" {
-  region = "us-east-1" # Change to your desired region
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
 }
 
-variable "lambda_functions" {
-  description = "List of Lambda function configurations."
-  type = list(object({
-    function_name       = string
-    runtime             = string
-    role_arn            = string
-    handler             = string
-    filename            = string
-    environment         = map(string)
-    tags                = map(string)
-  }))
+provider "aws" {
+  region = "ap-southeast-2" # Change to your desired region
+  profile = "default"
 }
+
+# variable "lambda_functions" {
+#   description = "List of Lambda function configurations."
+#   type = list(object({
+#     function_name       = string
+#     runtime             = string
+#     role_arn            = string
+#     handler             = string
+#     filename            = string
+#     environment         = map(string)
+#     tags                = map(string)
+#   }))
+# }
 
 # Loop through the Lambda functions
 module "lambda_functions" {
