@@ -1,17 +1,15 @@
 name: Update Lambda Functions
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      function_name:
+        description: "Lambda function to deploy (e.g., g2_handler, gamil_extractor, or all)"
+        required: true
+        default: "g2_handler"
 
 env:
-  AWS_REGION: ap-southeast-2 # set this to your preferred AWS region, e.g. us-west-1
-  FUNCTION_NAME_ONE: g2_handler
-
+  AWS_REGION: ap-southeast-2 # Your preferred AWS region
 
 jobs:
   deploy_lambda:
@@ -31,26 +29,58 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+        aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Build and Deploy g2_handler
+    - name: Deploy Lambda Functions
       run: |
-        cd extract/g2_handler
-        mkdir -p package
-        pip install -r requirements.txt -t package/
-        cp lambda_function.py package/
-        zip -r lambda_function.zip package/
-        aws lambda update-function-code \
-          --function-name ${{ env.FUNCTION_NAME_ONE }} \
-          --zip-file fileb://lambda_function.zip
+        case "${{ github.event.inputs.function_name }}" in
+          g2_handler)
+            echo "Deploying g2_handler..."
+            cd extract/g2_handler
+            mkdir -p package
+            pip install -r requirements.txt -t package/
+            cp lambda_function.py package/
+            zip -r lambda_function.zip package/
+            aws lambda update-function-code \
+              --function-name g2_handler \
+              --zip-file fileb://lambda_function.zip
+            ;;
+          gamil_extractor)
+            echo "Deploying gamil_extractor..."
+            cd extract/gamil_extractor
+            mkdir -p package
+            pip install -r requirements.txt -t package/
+            cp lambda_function.py package/
+            zip -r lambda_function.zip package/
+            aws lambda update-function-code \
+              --function-name gamil_extractor \
+              --zip-file fileb://lambda_function.zip
+            ;;
+          all)
+            echo "Deploying all Lambda functions..."
+            # Deploy g2_handler
+            cd extract/g2_handler
+            mkdir -p package
+            pip install -r requirements.txt -t package/
+            cp lambda_function.py package/
+            zip -r lambda_function.zip package/
+            aws lambda update-function-code \
+              --function-name g2_handler \
+              --zip-file fileb://lambda_function.zip
+            cd ../..
 
-    # - name: Build and Deploy gamil_extractor
-    #   run: |
-    #     cd extract/gamil_extractor
-    #     mkdir -p package
-    #     pip install -r requirements.txt -t package/
-    #     cp lambda_function.py package/
-    #     zip -r lambda_function.zip package/
-    #     aws lambda update-function-code \
-    #       --function-name gamil_extractor \
-    #       --zip-file fileb://lambda_function.zip
+            # Deploy gamil_extractor
+            cd extract/gamil_extractor
+            mkdir -p package
+            pip install -r requirements.txt -t package/
+            cp lambda_function.py package/
+            zip -r lambda_function.zip package/
+            aws lambda update-function-code \
+              --function-name gamil_extractor \
+              --zip-file fileb://lambda_function.zip
+            ;;
+          *)
+            echo "Invalid option provided: ${{ github.event.inputs.function_name }}"
+            exit 1
+            ;;
+        esac
