@@ -40,7 +40,7 @@ resource "aws_iam_role_policy_attachment" "lambda_execution_policy_g2_handler_at
   policy_arn = aws_iam_policy.lambda_execution_policy_g2_handler.arn
 }
 
-output "role_arn" {
+output "g2_handler_role_arn" {
   value = aws_iam_role.lambda_execution_role_g2_handler.arn
 }
 
@@ -86,7 +86,7 @@ resource "aws_iam_role_policy_attachment" "lambda_execution_policy_gmail_Extract
   policy_arn = aws_iam_policy.lambda_execution_policy_gmail_Extractor.arn
 }
 
-output "role_arn" {
+output "gmail_Extractor_role_arn" {
   value = aws_iam_role.lambda_execution_role_gmail_Extractor.arn
 }
 
