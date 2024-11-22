@@ -22,3 +22,15 @@ module "lambda_functions_g2_handler" {
   handler              = var.handler
   filename             = "../extract/g2_handler/lambda_function.zip"
 }
+
+module "lambda_functions_g2_handler" {
+
+  source = "./modules/lambda"
+
+  function_name        = "gamil_extractor"
+  runtime              = var.runtime
+  role_arn             = aws_iam_role.lambda_execution_role.arn
+  handler              = var.handler
+  filename             = "../extract/gamil_extractor/lambda_function.zip"
+}
+
