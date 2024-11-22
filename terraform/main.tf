@@ -23,7 +23,7 @@ module "lambda_functions_g2_handler" {
   filename             = "../extract/g2_handler/lambda_function.zip"
 }
 
-module "lambda_functions_g2_handler" {
+module "lambda_functions_gamil_extractor" {
 
   source = "./modules/lambda"
 
