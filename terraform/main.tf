@@ -36,3 +36,12 @@ module "lambda_functions_gamil_extractor" {
 }
 
 # add new lambda modules to create new lambda functions
+
+# SQS modules
+module "sqs" {
+
+  source = "./modules/sqs"
+  
+  queue_name          = "sample_queue_namer"
+  fifo_queue          = false
+}
