@@ -4,5 +4,5 @@ def lambda_handler(event, context):
     # TODO implement
     return {
         'statusCode': 200,
-        'body': json.dumps('Gmail Extractor!')
+        'body': json.dumps('Gmail Extractor V2!')
     }
