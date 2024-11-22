@@ -1,4 +1,4 @@
-name: Deploy Lambda Function
+name: DUpdate  Lambda Function
 
 on:
   push:
