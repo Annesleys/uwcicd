@@ -6,7 +6,7 @@ on:
       function_name:
         description: "Lambda function to deploy (e.g., g2_handler, gamil_extractor, or all)"
         required: true
-        default: "g2_handler"
+        default: "all"
 
 # env:
 #   AWS_REGION: ap-southeast-2 # Your preferred AWS region
