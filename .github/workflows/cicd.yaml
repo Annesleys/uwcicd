@@ -39,13 +39,13 @@ jobs:
           --function-name g2_handler \
           --zip-file fileb://lambda_function.zip
 
-    - name: Build and Deploy gamil_extractor
-      run: |
-        cd extract/gamil_extractor
-        mkdir -p package
-        pip install -r requirements.txt -t package/
-        cp lambda_function.py package/
-        zip -r lambda_function.zip package/
-        aws lambda update-function-code \
-          --function-name gamil_extractor \
-          --zip-file fileb://lambda_function.zip
+    # - name: Build and Deploy gamil_extractor
+    #   run: |
+    #     cd extract/gamil_extractor
+    #     mkdir -p package
+    #     pip install -r requirements.txt -t package/
+    #     cp lambda_function.py package/
+    #     zip -r lambda_function.zip package/
+    #     aws lambda update-function-code \
+    #       --function-name gamil_extractor \
+    #       --zip-file fileb://lambda_function.zip
