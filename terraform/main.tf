@@ -42,6 +42,6 @@ module "sqs" {
 
   source = "./modules/sqs"
 
-  queue_name          = "sample_queue_namer"
+  queue_name          = "sample_queue_name"
   fifo_queue          = false
 }
