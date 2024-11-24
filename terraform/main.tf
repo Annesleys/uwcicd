@@ -24,15 +24,15 @@ module "lambda_functions_g2_handler" {
 }
 
 # gmail extractor Lambda functions
-module "lambda_functions_gamil_extractor" {
+module "lambda_functions_gmail_extractor" {
 
   source = "./modules/lambda"
 
-  function_name        = "gamil_extractor"
+  function_name        = "gmail_extractor"
   runtime              = var.runtime
   role_arn             = aws_iam_role.lambda_execution_role_gmail_Extractor.arn
   handler              = var.handler
-  filename             = "../extract/gamil_extractor/lambda_function.zip"
+  filename             = "../extract/gmail_extractor/lambda_function.zip"
 }
 
 # add new lambda modules to create new lambda functions
@@ -41,7 +41,7 @@ module "lambda_functions_gamil_extractor" {
 module "sqs" {
 
   source = "./modules/sqs"
-  
+
   queue_name          = "sample_queue_namer"
   fifo_queue          = false
 }
